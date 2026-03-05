@@ -82,3 +82,23 @@ Each component has a narrow API and can be reused across list/detail/split scree
 
 ### Spec Deviations
 - For combined `category + search`, category endpoint is used first and search is applied client-side per fetched page. This keeps category filter authoritative while still supporting search.
+
+## Limitations
+
+- No dedicated `/showcase` component gallery screen yet.
+- Cache invalidation is minimal (timestamped sync marker, no TTL-based purge logic yet).
+- Pagination/search interaction can still fetch multiple pages when matches are sparse.
+- No golden tests; widget testing currently covers core component behavior only.
+
+## AI Tools Usage
+
+AI was used to accelerate scaffolding and iteration:
+- Initial architecture and folder structure draft.
+- First-pass implementations for repository/controller/component boilerplate.
+- Test scaffolding and edge-case checklist.
+
+All generated output was reviewed and refined manually, including:
+- fixing type mismatches and drift companion usage,
+- tightening state transitions,
+- validating route/layout behavior,
+- and ensuring analyzer/tests pass cleanly.
