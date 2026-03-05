@@ -45,18 +45,52 @@ class ProductDetailScreen extends ConsumerWidget {
   }
 }
 
-class _ProductDetailBody extends StatelessWidget {
+class _ProductDetailBody extends StatefulWidget {
   const _ProductDetailBody({required this.product});
 
   final Product product;
 
   @override
+  State<_ProductDetailBody> createState() => _ProductDetailBodyState();
+}
+
+class _ProductDetailBodyState extends State<_ProductDetailBody> {
+  late final PageController _pageController;
+  int _currentImageIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController(viewportFraction: 0.92);
+  }
+
+  @override
+  void didUpdateWidget(covariant _ProductDetailBody oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.product.id != widget.product.id) {
+      _currentImageIndex = 0;
+      _pageController.jumpToPage(0);
+    }
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final imageUrls =
-        (product.images.isNotEmpty ? product.images : [product.thumbnailUrl])
-            .whereType<String>()
+        (widget.product.images.isNotEmpty
+                ? widget.product.images
+                      .map((value) => value as String?)
+                      .toList()
+                : <String?>[widget.product.thumbnailUrl])
             .toList();
+    final totalImages = imageUrls.length;
+    final safeCurrentIndex = _currentImageIndex.clamp(0, totalImages - 1);
 
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
@@ -65,26 +99,46 @@ class _ProductDetailBody extends StatelessWidget {
         children: [
           SizedBox(
             height: 260,
-            child: ListView.separated(
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (_, index) {
-                return ClipRRect(
-                  borderRadius: BorderRadius.circular(18),
-                  child: AppNetworkImage(
-                    imageUrl: imageUrls.isEmpty ? null : imageUrls[index],
-                    height: 260,
-                    width: 320,
-                    fit: BoxFit.cover,
+            child: Stack(
+              children: [
+                PageView.builder(
+                  controller: _pageController,
+                  itemCount: totalImages,
+                  onPageChanged: (index) {
+                    setState(() {
+                      _currentImageIndex = index;
+                    });
+                  },
+                  itemBuilder: (_, index) {
+                    return Padding(
+                      padding: const EdgeInsets.only(right: 10),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(18),
+                        child: AppNetworkImage(
+                          imageUrl: imageUrls[index],
+                          height: 260,
+                          width: double.infinity,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    );
+                  },
+                ),
+                Positioned(
+                  right: 16,
+                  top: 12,
+                  child: _ImageCountPill(
+                    current: safeCurrentIndex + 1,
+                    total: totalImages,
                   ),
-                );
-              },
-              separatorBuilder: (_, index) => const SizedBox(width: 12),
-              itemCount: imageUrls.isEmpty ? 1 : imageUrls.length,
+                ),
+              ],
             ),
           ),
+
           const SizedBox(height: 16),
           Text(
-            product.title,
+            widget.product.title,
             style: theme.textTheme.headlineSmall?.copyWith(
               fontWeight: FontWeight.w800,
             ),
@@ -94,40 +148,47 @@ class _ProductDetailBody extends StatelessWidget {
             spacing: 8,
             runSpacing: 8,
             children: [
-              _MetaChip(label: product.brand, icon: Icons.business_outlined),
               _MetaChip(
-                label: _readableCategory(product.category),
+                label: widget.product.brand,
+                icon: Icons.business_outlined,
+              ),
+              _MetaChip(
+                label: _readableCategory(widget.product.category),
                 icon: Icons.category_outlined,
               ),
               _MetaChip(
-                label: '${product.rating.toStringAsFixed(1)} rating',
+                label: '${widget.product.rating.toStringAsFixed(1)} rating',
                 icon: Icons.star_rounded,
+                iconColor: Colors.amber.shade700,
               ),
-              if (product.sku != null)
-                _MetaChip(label: 'SKU: ${product.sku}', icon: Icons.qr_code),
+              if (widget.product.sku != null)
+                _MetaChip(
+                  label: 'SKU: ${widget.product.sku}',
+                  icon: Icons.qr_code,
+                ),
             ],
           ),
           const SizedBox(height: 14),
-          _PriceInfo(product: product),
+          _PriceInfo(product: widget.product),
           const SizedBox(height: 16),
           Row(
             children: [
               Icon(
-                product.inStock ? Icons.check_circle : Icons.cancel,
-                color: product.inStock
+                widget.product.inStock ? Icons.check_circle : Icons.cancel,
+                color: widget.product.inStock
                     ? theme.colorScheme.primary
                     : theme.colorScheme.error,
               ),
               const SizedBox(width: 8),
               Text(
-                _availabilityText(product),
+                _availabilityText(widget.product),
                 style: theme.textTheme.titleSmall?.copyWith(
                   fontWeight: FontWeight.w700,
                 ),
               ),
             ],
           ),
-          if (product.tags.isNotEmpty) ...[
+          if (widget.product.tags.isNotEmpty) ...[
             const SizedBox(height: 18),
             Text(
               'Tags',
@@ -139,7 +200,7 @@ class _ProductDetailBody extends StatelessWidget {
             Wrap(
               spacing: 8,
               runSpacing: 8,
-              children: product.tags
+              children: widget.product.tags
                   .map(
                     (tag) =>
                         _MetaChip(label: '#$tag', icon: Icons.sell_outlined),
@@ -155,11 +216,11 @@ class _ProductDetailBody extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 8),
-          Text(product.description, style: theme.textTheme.bodyLarge),
-          _KeyDetailsSection(product: product),
-          _PolicySection(product: product),
-          _ReviewsSection(product: product),
-          _MetaSection(product: product),
+          Text(widget.product.description, style: theme.textTheme.bodyLarge),
+          _KeyDetailsSection(product: widget.product),
+          _PolicySection(product: widget.product),
+          _ReviewsSection(product: widget.product),
+          _MetaSection(product: widget.product),
         ],
       ),
     );
@@ -190,11 +251,40 @@ class _ProductDetailBody extends StatelessWidget {
   }
 }
 
+class _ImageCountPill extends StatelessWidget {
+  const _ImageCountPill({required this.current, required this.total});
+
+  final int current;
+  final int total;
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+      decoration: BoxDecoration(
+        color: Colors.black.withValues(alpha: 0.52),
+        borderRadius: BorderRadius.circular(999),
+        border: Border.all(color: colorScheme.onPrimary.withValues(alpha: 0.2)),
+      ),
+      child: Text(
+        '$current / $total',
+        style: Theme.of(context).textTheme.labelMedium?.copyWith(
+          color: Colors.white,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
+    );
+  }
+}
+
 class _MetaChip extends StatelessWidget {
-  const _MetaChip({required this.label, required this.icon});
+  const _MetaChip({required this.label, required this.icon, this.iconColor});
 
   final String label;
   final IconData icon;
+  final Color? iconColor;
 
   @override
   Widget build(BuildContext context) {
@@ -209,7 +299,7 @@ class _MetaChip extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, size: 16),
+          Icon(icon, size: 16, color: iconColor),
           const SizedBox(width: 6),
           Text(
             label,
@@ -550,7 +640,7 @@ class _PriceInfo extends StatelessWidget {
             _money(product.price!),
             style: theme.textTheme.bodyLarge?.copyWith(
               decoration: TextDecoration.lineThrough,
-              color: theme.colorScheme.onSurfaceVariant,
+              color: Colors.red.shade600,
             ),
           ),
         ),
@@ -560,7 +650,7 @@ class _PriceInfo extends StatelessWidget {
           child: Text(
             '-${product.discountPercentage.toStringAsFixed(0)}%',
             style: theme.textTheme.bodyLarge?.copyWith(
-              color: theme.colorScheme.primary,
+              color: Colors.green.shade700,
               fontWeight: FontWeight.w700,
             ),
           ),
