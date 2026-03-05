@@ -30,6 +30,28 @@ class CachedProducts extends Table {
 
   TextColumn get imagesJson => text().withDefault(const Constant('[]'))();
 
+  TextColumn get tagsJson => text().withDefault(const Constant('[]'))();
+
+  TextColumn get sku => text().nullable()();
+
+  RealColumn get weight => real().nullable()();
+
+  TextColumn get dimensionsJson => text().nullable()();
+
+  TextColumn get warrantyInformation => text().nullable()();
+
+  TextColumn get shippingInformation => text().nullable()();
+
+  TextColumn get availabilityStatus => text().nullable()();
+
+  TextColumn get returnPolicy => text().nullable()();
+
+  IntColumn get minimumOrderQuantity => integer().nullable()();
+
+  TextColumn get reviewsJson => text().withDefault(const Constant('[]'))();
+
+  TextColumn get metaJson => text().nullable()();
+
   IntColumn get updatedAt => integer()();
 
   @override
@@ -53,7 +75,38 @@ class AppDatabase extends _$AppDatabase {
   static const String _productsLastSyncKey = 'products_last_sync';
 
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
+
+  @override
+  MigrationStrategy get migration => MigrationStrategy(
+    onUpgrade: (migrator, from, to) async {
+      if (from < 2) {
+        await migrator.addColumn(cachedProducts, cachedProducts.tagsJson);
+        await migrator.addColumn(cachedProducts, cachedProducts.sku);
+        await migrator.addColumn(cachedProducts, cachedProducts.weight);
+        await migrator.addColumn(cachedProducts, cachedProducts.dimensionsJson);
+        await migrator.addColumn(
+          cachedProducts,
+          cachedProducts.warrantyInformation,
+        );
+        await migrator.addColumn(
+          cachedProducts,
+          cachedProducts.shippingInformation,
+        );
+        await migrator.addColumn(
+          cachedProducts,
+          cachedProducts.availabilityStatus,
+        );
+        await migrator.addColumn(cachedProducts, cachedProducts.returnPolicy);
+        await migrator.addColumn(
+          cachedProducts,
+          cachedProducts.minimumOrderQuantity,
+        );
+        await migrator.addColumn(cachedProducts, cachedProducts.reviewsJson);
+        await migrator.addColumn(cachedProducts, cachedProducts.metaJson);
+      }
+    },
+  );
 
   Future<void> upsertProducts(List<Product> products) async {
     if (products.isEmpty) {
@@ -78,6 +131,27 @@ class AppDatabase extends _$AppDatabase {
             category: product.category,
             thumbnailUrl: Value(product.thumbnailUrl),
             imagesJson: Value(jsonEncode(product.images)),
+            tagsJson: Value(jsonEncode(product.tags)),
+            sku: Value(product.sku),
+            weight: Value(product.weight),
+            dimensionsJson: Value(
+              product.dimensions == null
+                  ? null
+                  : jsonEncode(product.dimensions!.toJson()),
+            ),
+            warrantyInformation: Value(product.warrantyInformation),
+            shippingInformation: Value(product.shippingInformation),
+            availabilityStatus: Value(product.availabilityStatus),
+            returnPolicy: Value(product.returnPolicy),
+            minimumOrderQuantity: Value(product.minimumOrderQuantity),
+            reviewsJson: Value(
+              jsonEncode(
+                product.reviews.map((review) => review.toJson()).toList(),
+              ),
+            ),
+            metaJson: Value(
+              product.meta == null ? null : jsonEncode(product.meta!.toJson()),
+            ),
             updatedAt: now,
           );
         }).toList(),
@@ -177,10 +251,8 @@ class AppDatabase extends _$AppDatabase {
   }
 
   Product _toDomainProduct(CachedProduct row) {
-    final imagesDynamic = jsonDecode(row.imagesJson);
-    final images = imagesDynamic is List
-        ? imagesDynamic.whereType<String>().toList()
-        : const <String>[];
+    final dimensionsMap = _decodeJsonMap(row.dimensionsJson);
+    final metaMap = _decodeJsonMap(row.metaJson);
 
     return Product(
       id: row.id,
@@ -193,7 +265,76 @@ class AppDatabase extends _$AppDatabase {
       brand: row.brand,
       category: row.category,
       thumbnailUrl: row.thumbnailUrl,
-      images: images,
+      images: _decodeStringList(row.imagesJson),
+      tags: _decodeStringList(row.tagsJson),
+      sku: row.sku,
+      weight: row.weight,
+      dimensions: dimensionsMap == null
+          ? null
+          : ProductDimensions.fromJson(dimensionsMap),
+      warrantyInformation: row.warrantyInformation,
+      shippingInformation: row.shippingInformation,
+      availabilityStatus: row.availabilityStatus,
+      returnPolicy: row.returnPolicy,
+      minimumOrderQuantity: row.minimumOrderQuantity,
+      reviews: _decodeJsonListOfMaps(
+        row.reviewsJson,
+      ).map(ProductReview.fromJson).toList(),
+      meta: metaMap == null ? null : ProductMeta.fromJson(metaMap),
     );
+  }
+
+  List<String> _decodeStringList(String? raw) {
+    if (raw == null || raw.trim().isEmpty) {
+      return const <String>[];
+    }
+
+    try {
+      final decoded = jsonDecode(raw);
+      if (decoded is! List) {
+        return const <String>[];
+      }
+
+      return decoded.whereType<String>().toList();
+    } catch (_) {
+      return const <String>[];
+    }
+  }
+
+  Map<String, dynamic>? _decodeJsonMap(String? raw) {
+    if (raw == null || raw.trim().isEmpty) {
+      return null;
+    }
+
+    try {
+      final decoded = jsonDecode(raw);
+      if (decoded is! Map) {
+        return null;
+      }
+
+      return Map<String, dynamic>.from(decoded);
+    } catch (_) {
+      return null;
+    }
+  }
+
+  List<Map<String, dynamic>> _decodeJsonListOfMaps(String? raw) {
+    if (raw == null || raw.trim().isEmpty) {
+      return const <Map<String, dynamic>>[];
+    }
+
+    try {
+      final decoded = jsonDecode(raw);
+      if (decoded is! List) {
+        return const <Map<String, dynamic>>[];
+      }
+
+      return decoded
+          .whereType<Map>()
+          .map((entry) => Map<String, dynamic>.from(entry))
+          .toList();
+    } catch (_) {
+      return const <Map<String, dynamic>>[];
+    }
   }
 }

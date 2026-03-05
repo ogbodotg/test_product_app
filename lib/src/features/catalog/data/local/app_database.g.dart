@@ -122,6 +122,124 @@ class $CachedProductsTable extends CachedProducts
     requiredDuringInsert: false,
     defaultValue: const Constant('[]'),
   );
+  static const VerificationMeta _tagsJsonMeta = const VerificationMeta(
+    'tagsJson',
+  );
+  @override
+  late final GeneratedColumn<String> tagsJson = GeneratedColumn<String>(
+    'tags_json',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('[]'),
+  );
+  static const VerificationMeta _skuMeta = const VerificationMeta('sku');
+  @override
+  late final GeneratedColumn<String> sku = GeneratedColumn<String>(
+    'sku',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _weightMeta = const VerificationMeta('weight');
+  @override
+  late final GeneratedColumn<double> weight = GeneratedColumn<double>(
+    'weight',
+    aliasedName,
+    true,
+    type: DriftSqlType.double,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _dimensionsJsonMeta = const VerificationMeta(
+    'dimensionsJson',
+  );
+  @override
+  late final GeneratedColumn<String> dimensionsJson = GeneratedColumn<String>(
+    'dimensions_json',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _warrantyInformationMeta =
+      const VerificationMeta('warrantyInformation');
+  @override
+  late final GeneratedColumn<String> warrantyInformation =
+      GeneratedColumn<String>(
+        'warranty_information',
+        aliasedName,
+        true,
+        type: DriftSqlType.string,
+        requiredDuringInsert: false,
+      );
+  static const VerificationMeta _shippingInformationMeta =
+      const VerificationMeta('shippingInformation');
+  @override
+  late final GeneratedColumn<String> shippingInformation =
+      GeneratedColumn<String>(
+        'shipping_information',
+        aliasedName,
+        true,
+        type: DriftSqlType.string,
+        requiredDuringInsert: false,
+      );
+  static const VerificationMeta _availabilityStatusMeta =
+      const VerificationMeta('availabilityStatus');
+  @override
+  late final GeneratedColumn<String> availabilityStatus =
+      GeneratedColumn<String>(
+        'availability_status',
+        aliasedName,
+        true,
+        type: DriftSqlType.string,
+        requiredDuringInsert: false,
+      );
+  static const VerificationMeta _returnPolicyMeta = const VerificationMeta(
+    'returnPolicy',
+  );
+  @override
+  late final GeneratedColumn<String> returnPolicy = GeneratedColumn<String>(
+    'return_policy',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _minimumOrderQuantityMeta =
+      const VerificationMeta('minimumOrderQuantity');
+  @override
+  late final GeneratedColumn<int> minimumOrderQuantity = GeneratedColumn<int>(
+    'minimum_order_quantity',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _reviewsJsonMeta = const VerificationMeta(
+    'reviewsJson',
+  );
+  @override
+  late final GeneratedColumn<String> reviewsJson = GeneratedColumn<String>(
+    'reviews_json',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('[]'),
+  );
+  static const VerificationMeta _metaJsonMeta = const VerificationMeta(
+    'metaJson',
+  );
+  @override
+  late final GeneratedColumn<String> metaJson = GeneratedColumn<String>(
+    'meta_json',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
   static const VerificationMeta _updatedAtMeta = const VerificationMeta(
     'updatedAt',
   );
@@ -146,6 +264,17 @@ class $CachedProductsTable extends CachedProducts
     category,
     thumbnailUrl,
     imagesJson,
+    tagsJson,
+    sku,
+    weight,
+    dimensionsJson,
+    warrantyInformation,
+    shippingInformation,
+    availabilityStatus,
+    returnPolicy,
+    minimumOrderQuantity,
+    reviewsJson,
+    metaJson,
     updatedAt,
   ];
   @override
@@ -240,6 +369,93 @@ class $CachedProductsTable extends CachedProducts
         imagesJson.isAcceptableOrUnknown(data['images_json']!, _imagesJsonMeta),
       );
     }
+    if (data.containsKey('tags_json')) {
+      context.handle(
+        _tagsJsonMeta,
+        tagsJson.isAcceptableOrUnknown(data['tags_json']!, _tagsJsonMeta),
+      );
+    }
+    if (data.containsKey('sku')) {
+      context.handle(
+        _skuMeta,
+        sku.isAcceptableOrUnknown(data['sku']!, _skuMeta),
+      );
+    }
+    if (data.containsKey('weight')) {
+      context.handle(
+        _weightMeta,
+        weight.isAcceptableOrUnknown(data['weight']!, _weightMeta),
+      );
+    }
+    if (data.containsKey('dimensions_json')) {
+      context.handle(
+        _dimensionsJsonMeta,
+        dimensionsJson.isAcceptableOrUnknown(
+          data['dimensions_json']!,
+          _dimensionsJsonMeta,
+        ),
+      );
+    }
+    if (data.containsKey('warranty_information')) {
+      context.handle(
+        _warrantyInformationMeta,
+        warrantyInformation.isAcceptableOrUnknown(
+          data['warranty_information']!,
+          _warrantyInformationMeta,
+        ),
+      );
+    }
+    if (data.containsKey('shipping_information')) {
+      context.handle(
+        _shippingInformationMeta,
+        shippingInformation.isAcceptableOrUnknown(
+          data['shipping_information']!,
+          _shippingInformationMeta,
+        ),
+      );
+    }
+    if (data.containsKey('availability_status')) {
+      context.handle(
+        _availabilityStatusMeta,
+        availabilityStatus.isAcceptableOrUnknown(
+          data['availability_status']!,
+          _availabilityStatusMeta,
+        ),
+      );
+    }
+    if (data.containsKey('return_policy')) {
+      context.handle(
+        _returnPolicyMeta,
+        returnPolicy.isAcceptableOrUnknown(
+          data['return_policy']!,
+          _returnPolicyMeta,
+        ),
+      );
+    }
+    if (data.containsKey('minimum_order_quantity')) {
+      context.handle(
+        _minimumOrderQuantityMeta,
+        minimumOrderQuantity.isAcceptableOrUnknown(
+          data['minimum_order_quantity']!,
+          _minimumOrderQuantityMeta,
+        ),
+      );
+    }
+    if (data.containsKey('reviews_json')) {
+      context.handle(
+        _reviewsJsonMeta,
+        reviewsJson.isAcceptableOrUnknown(
+          data['reviews_json']!,
+          _reviewsJsonMeta,
+        ),
+      );
+    }
+    if (data.containsKey('meta_json')) {
+      context.handle(
+        _metaJsonMeta,
+        metaJson.isAcceptableOrUnknown(data['meta_json']!, _metaJsonMeta),
+      );
+    }
     if (data.containsKey('updated_at')) {
       context.handle(
         _updatedAtMeta,
@@ -301,6 +517,50 @@ class $CachedProductsTable extends CachedProducts
         DriftSqlType.string,
         data['${effectivePrefix}images_json'],
       )!,
+      tagsJson: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}tags_json'],
+      )!,
+      sku: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}sku'],
+      ),
+      weight: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}weight'],
+      ),
+      dimensionsJson: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}dimensions_json'],
+      ),
+      warrantyInformation: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}warranty_information'],
+      ),
+      shippingInformation: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}shipping_information'],
+      ),
+      availabilityStatus: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}availability_status'],
+      ),
+      returnPolicy: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}return_policy'],
+      ),
+      minimumOrderQuantity: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}minimum_order_quantity'],
+      ),
+      reviewsJson: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}reviews_json'],
+      )!,
+      metaJson: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}meta_json'],
+      ),
       updatedAt: attachedDatabase.typeMapping.read(
         DriftSqlType.int,
         data['${effectivePrefix}updated_at'],
@@ -326,6 +586,17 @@ class CachedProduct extends DataClass implements Insertable<CachedProduct> {
   final String category;
   final String? thumbnailUrl;
   final String imagesJson;
+  final String tagsJson;
+  final String? sku;
+  final double? weight;
+  final String? dimensionsJson;
+  final String? warrantyInformation;
+  final String? shippingInformation;
+  final String? availabilityStatus;
+  final String? returnPolicy;
+  final int? minimumOrderQuantity;
+  final String reviewsJson;
+  final String? metaJson;
   final int updatedAt;
   const CachedProduct({
     required this.id,
@@ -339,6 +610,17 @@ class CachedProduct extends DataClass implements Insertable<CachedProduct> {
     required this.category,
     this.thumbnailUrl,
     required this.imagesJson,
+    required this.tagsJson,
+    this.sku,
+    this.weight,
+    this.dimensionsJson,
+    this.warrantyInformation,
+    this.shippingInformation,
+    this.availabilityStatus,
+    this.returnPolicy,
+    this.minimumOrderQuantity,
+    required this.reviewsJson,
+    this.metaJson,
     required this.updatedAt,
   });
   @override
@@ -359,6 +641,35 @@ class CachedProduct extends DataClass implements Insertable<CachedProduct> {
       map['thumbnail_url'] = Variable<String>(thumbnailUrl);
     }
     map['images_json'] = Variable<String>(imagesJson);
+    map['tags_json'] = Variable<String>(tagsJson);
+    if (!nullToAbsent || sku != null) {
+      map['sku'] = Variable<String>(sku);
+    }
+    if (!nullToAbsent || weight != null) {
+      map['weight'] = Variable<double>(weight);
+    }
+    if (!nullToAbsent || dimensionsJson != null) {
+      map['dimensions_json'] = Variable<String>(dimensionsJson);
+    }
+    if (!nullToAbsent || warrantyInformation != null) {
+      map['warranty_information'] = Variable<String>(warrantyInformation);
+    }
+    if (!nullToAbsent || shippingInformation != null) {
+      map['shipping_information'] = Variable<String>(shippingInformation);
+    }
+    if (!nullToAbsent || availabilityStatus != null) {
+      map['availability_status'] = Variable<String>(availabilityStatus);
+    }
+    if (!nullToAbsent || returnPolicy != null) {
+      map['return_policy'] = Variable<String>(returnPolicy);
+    }
+    if (!nullToAbsent || minimumOrderQuantity != null) {
+      map['minimum_order_quantity'] = Variable<int>(minimumOrderQuantity);
+    }
+    map['reviews_json'] = Variable<String>(reviewsJson);
+    if (!nullToAbsent || metaJson != null) {
+      map['meta_json'] = Variable<String>(metaJson);
+    }
     map['updated_at'] = Variable<int>(updatedAt);
     return map;
   }
@@ -380,6 +691,33 @@ class CachedProduct extends DataClass implements Insertable<CachedProduct> {
           ? const Value.absent()
           : Value(thumbnailUrl),
       imagesJson: Value(imagesJson),
+      tagsJson: Value(tagsJson),
+      sku: sku == null && nullToAbsent ? const Value.absent() : Value(sku),
+      weight: weight == null && nullToAbsent
+          ? const Value.absent()
+          : Value(weight),
+      dimensionsJson: dimensionsJson == null && nullToAbsent
+          ? const Value.absent()
+          : Value(dimensionsJson),
+      warrantyInformation: warrantyInformation == null && nullToAbsent
+          ? const Value.absent()
+          : Value(warrantyInformation),
+      shippingInformation: shippingInformation == null && nullToAbsent
+          ? const Value.absent()
+          : Value(shippingInformation),
+      availabilityStatus: availabilityStatus == null && nullToAbsent
+          ? const Value.absent()
+          : Value(availabilityStatus),
+      returnPolicy: returnPolicy == null && nullToAbsent
+          ? const Value.absent()
+          : Value(returnPolicy),
+      minimumOrderQuantity: minimumOrderQuantity == null && nullToAbsent
+          ? const Value.absent()
+          : Value(minimumOrderQuantity),
+      reviewsJson: Value(reviewsJson),
+      metaJson: metaJson == null && nullToAbsent
+          ? const Value.absent()
+          : Value(metaJson),
       updatedAt: Value(updatedAt),
     );
   }
@@ -403,6 +741,25 @@ class CachedProduct extends DataClass implements Insertable<CachedProduct> {
       category: serializer.fromJson<String>(json['category']),
       thumbnailUrl: serializer.fromJson<String?>(json['thumbnailUrl']),
       imagesJson: serializer.fromJson<String>(json['imagesJson']),
+      tagsJson: serializer.fromJson<String>(json['tagsJson']),
+      sku: serializer.fromJson<String?>(json['sku']),
+      weight: serializer.fromJson<double?>(json['weight']),
+      dimensionsJson: serializer.fromJson<String?>(json['dimensionsJson']),
+      warrantyInformation: serializer.fromJson<String?>(
+        json['warrantyInformation'],
+      ),
+      shippingInformation: serializer.fromJson<String?>(
+        json['shippingInformation'],
+      ),
+      availabilityStatus: serializer.fromJson<String?>(
+        json['availabilityStatus'],
+      ),
+      returnPolicy: serializer.fromJson<String?>(json['returnPolicy']),
+      minimumOrderQuantity: serializer.fromJson<int?>(
+        json['minimumOrderQuantity'],
+      ),
+      reviewsJson: serializer.fromJson<String>(json['reviewsJson']),
+      metaJson: serializer.fromJson<String?>(json['metaJson']),
       updatedAt: serializer.fromJson<int>(json['updatedAt']),
     );
   }
@@ -421,6 +778,17 @@ class CachedProduct extends DataClass implements Insertable<CachedProduct> {
       'category': serializer.toJson<String>(category),
       'thumbnailUrl': serializer.toJson<String?>(thumbnailUrl),
       'imagesJson': serializer.toJson<String>(imagesJson),
+      'tagsJson': serializer.toJson<String>(tagsJson),
+      'sku': serializer.toJson<String?>(sku),
+      'weight': serializer.toJson<double?>(weight),
+      'dimensionsJson': serializer.toJson<String?>(dimensionsJson),
+      'warrantyInformation': serializer.toJson<String?>(warrantyInformation),
+      'shippingInformation': serializer.toJson<String?>(shippingInformation),
+      'availabilityStatus': serializer.toJson<String?>(availabilityStatus),
+      'returnPolicy': serializer.toJson<String?>(returnPolicy),
+      'minimumOrderQuantity': serializer.toJson<int?>(minimumOrderQuantity),
+      'reviewsJson': serializer.toJson<String>(reviewsJson),
+      'metaJson': serializer.toJson<String?>(metaJson),
       'updatedAt': serializer.toJson<int>(updatedAt),
     };
   }
@@ -437,6 +805,17 @@ class CachedProduct extends DataClass implements Insertable<CachedProduct> {
     String? category,
     Value<String?> thumbnailUrl = const Value.absent(),
     String? imagesJson,
+    String? tagsJson,
+    Value<String?> sku = const Value.absent(),
+    Value<double?> weight = const Value.absent(),
+    Value<String?> dimensionsJson = const Value.absent(),
+    Value<String?> warrantyInformation = const Value.absent(),
+    Value<String?> shippingInformation = const Value.absent(),
+    Value<String?> availabilityStatus = const Value.absent(),
+    Value<String?> returnPolicy = const Value.absent(),
+    Value<int?> minimumOrderQuantity = const Value.absent(),
+    String? reviewsJson,
+    Value<String?> metaJson = const Value.absent(),
     int? updatedAt,
   }) => CachedProduct(
     id: id ?? this.id,
@@ -450,6 +829,27 @@ class CachedProduct extends DataClass implements Insertable<CachedProduct> {
     category: category ?? this.category,
     thumbnailUrl: thumbnailUrl.present ? thumbnailUrl.value : this.thumbnailUrl,
     imagesJson: imagesJson ?? this.imagesJson,
+    tagsJson: tagsJson ?? this.tagsJson,
+    sku: sku.present ? sku.value : this.sku,
+    weight: weight.present ? weight.value : this.weight,
+    dimensionsJson: dimensionsJson.present
+        ? dimensionsJson.value
+        : this.dimensionsJson,
+    warrantyInformation: warrantyInformation.present
+        ? warrantyInformation.value
+        : this.warrantyInformation,
+    shippingInformation: shippingInformation.present
+        ? shippingInformation.value
+        : this.shippingInformation,
+    availabilityStatus: availabilityStatus.present
+        ? availabilityStatus.value
+        : this.availabilityStatus,
+    returnPolicy: returnPolicy.present ? returnPolicy.value : this.returnPolicy,
+    minimumOrderQuantity: minimumOrderQuantity.present
+        ? minimumOrderQuantity.value
+        : this.minimumOrderQuantity,
+    reviewsJson: reviewsJson ?? this.reviewsJson,
+    metaJson: metaJson.present ? metaJson.value : this.metaJson,
     updatedAt: updatedAt ?? this.updatedAt,
   );
   CachedProduct copyWithCompanion(CachedProductsCompanion data) {
@@ -473,6 +873,31 @@ class CachedProduct extends DataClass implements Insertable<CachedProduct> {
       imagesJson: data.imagesJson.present
           ? data.imagesJson.value
           : this.imagesJson,
+      tagsJson: data.tagsJson.present ? data.tagsJson.value : this.tagsJson,
+      sku: data.sku.present ? data.sku.value : this.sku,
+      weight: data.weight.present ? data.weight.value : this.weight,
+      dimensionsJson: data.dimensionsJson.present
+          ? data.dimensionsJson.value
+          : this.dimensionsJson,
+      warrantyInformation: data.warrantyInformation.present
+          ? data.warrantyInformation.value
+          : this.warrantyInformation,
+      shippingInformation: data.shippingInformation.present
+          ? data.shippingInformation.value
+          : this.shippingInformation,
+      availabilityStatus: data.availabilityStatus.present
+          ? data.availabilityStatus.value
+          : this.availabilityStatus,
+      returnPolicy: data.returnPolicy.present
+          ? data.returnPolicy.value
+          : this.returnPolicy,
+      minimumOrderQuantity: data.minimumOrderQuantity.present
+          ? data.minimumOrderQuantity.value
+          : this.minimumOrderQuantity,
+      reviewsJson: data.reviewsJson.present
+          ? data.reviewsJson.value
+          : this.reviewsJson,
+      metaJson: data.metaJson.present ? data.metaJson.value : this.metaJson,
       updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
     );
   }
@@ -491,13 +916,24 @@ class CachedProduct extends DataClass implements Insertable<CachedProduct> {
           ..write('category: $category, ')
           ..write('thumbnailUrl: $thumbnailUrl, ')
           ..write('imagesJson: $imagesJson, ')
+          ..write('tagsJson: $tagsJson, ')
+          ..write('sku: $sku, ')
+          ..write('weight: $weight, ')
+          ..write('dimensionsJson: $dimensionsJson, ')
+          ..write('warrantyInformation: $warrantyInformation, ')
+          ..write('shippingInformation: $shippingInformation, ')
+          ..write('availabilityStatus: $availabilityStatus, ')
+          ..write('returnPolicy: $returnPolicy, ')
+          ..write('minimumOrderQuantity: $minimumOrderQuantity, ')
+          ..write('reviewsJson: $reviewsJson, ')
+          ..write('metaJson: $metaJson, ')
           ..write('updatedAt: $updatedAt')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(
+  int get hashCode => Object.hashAll([
     id,
     title,
     description,
@@ -509,8 +945,19 @@ class CachedProduct extends DataClass implements Insertable<CachedProduct> {
     category,
     thumbnailUrl,
     imagesJson,
+    tagsJson,
+    sku,
+    weight,
+    dimensionsJson,
+    warrantyInformation,
+    shippingInformation,
+    availabilityStatus,
+    returnPolicy,
+    minimumOrderQuantity,
+    reviewsJson,
+    metaJson,
     updatedAt,
-  );
+  ]);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -526,6 +973,17 @@ class CachedProduct extends DataClass implements Insertable<CachedProduct> {
           other.category == this.category &&
           other.thumbnailUrl == this.thumbnailUrl &&
           other.imagesJson == this.imagesJson &&
+          other.tagsJson == this.tagsJson &&
+          other.sku == this.sku &&
+          other.weight == this.weight &&
+          other.dimensionsJson == this.dimensionsJson &&
+          other.warrantyInformation == this.warrantyInformation &&
+          other.shippingInformation == this.shippingInformation &&
+          other.availabilityStatus == this.availabilityStatus &&
+          other.returnPolicy == this.returnPolicy &&
+          other.minimumOrderQuantity == this.minimumOrderQuantity &&
+          other.reviewsJson == this.reviewsJson &&
+          other.metaJson == this.metaJson &&
           other.updatedAt == this.updatedAt);
 }
 
@@ -541,6 +999,17 @@ class CachedProductsCompanion extends UpdateCompanion<CachedProduct> {
   final Value<String> category;
   final Value<String?> thumbnailUrl;
   final Value<String> imagesJson;
+  final Value<String> tagsJson;
+  final Value<String?> sku;
+  final Value<double?> weight;
+  final Value<String?> dimensionsJson;
+  final Value<String?> warrantyInformation;
+  final Value<String?> shippingInformation;
+  final Value<String?> availabilityStatus;
+  final Value<String?> returnPolicy;
+  final Value<int?> minimumOrderQuantity;
+  final Value<String> reviewsJson;
+  final Value<String?> metaJson;
   final Value<int> updatedAt;
   const CachedProductsCompanion({
     this.id = const Value.absent(),
@@ -554,6 +1023,17 @@ class CachedProductsCompanion extends UpdateCompanion<CachedProduct> {
     this.category = const Value.absent(),
     this.thumbnailUrl = const Value.absent(),
     this.imagesJson = const Value.absent(),
+    this.tagsJson = const Value.absent(),
+    this.sku = const Value.absent(),
+    this.weight = const Value.absent(),
+    this.dimensionsJson = const Value.absent(),
+    this.warrantyInformation = const Value.absent(),
+    this.shippingInformation = const Value.absent(),
+    this.availabilityStatus = const Value.absent(),
+    this.returnPolicy = const Value.absent(),
+    this.minimumOrderQuantity = const Value.absent(),
+    this.reviewsJson = const Value.absent(),
+    this.metaJson = const Value.absent(),
     this.updatedAt = const Value.absent(),
   });
   CachedProductsCompanion.insert({
@@ -568,6 +1048,17 @@ class CachedProductsCompanion extends UpdateCompanion<CachedProduct> {
     required String category,
     this.thumbnailUrl = const Value.absent(),
     this.imagesJson = const Value.absent(),
+    this.tagsJson = const Value.absent(),
+    this.sku = const Value.absent(),
+    this.weight = const Value.absent(),
+    this.dimensionsJson = const Value.absent(),
+    this.warrantyInformation = const Value.absent(),
+    this.shippingInformation = const Value.absent(),
+    this.availabilityStatus = const Value.absent(),
+    this.returnPolicy = const Value.absent(),
+    this.minimumOrderQuantity = const Value.absent(),
+    this.reviewsJson = const Value.absent(),
+    this.metaJson = const Value.absent(),
     required int updatedAt,
   }) : title = Value(title),
        description = Value(description),
@@ -586,6 +1077,17 @@ class CachedProductsCompanion extends UpdateCompanion<CachedProduct> {
     Expression<String>? category,
     Expression<String>? thumbnailUrl,
     Expression<String>? imagesJson,
+    Expression<String>? tagsJson,
+    Expression<String>? sku,
+    Expression<double>? weight,
+    Expression<String>? dimensionsJson,
+    Expression<String>? warrantyInformation,
+    Expression<String>? shippingInformation,
+    Expression<String>? availabilityStatus,
+    Expression<String>? returnPolicy,
+    Expression<int>? minimumOrderQuantity,
+    Expression<String>? reviewsJson,
+    Expression<String>? metaJson,
     Expression<int>? updatedAt,
   }) {
     return RawValuesInsertable({
@@ -600,6 +1102,20 @@ class CachedProductsCompanion extends UpdateCompanion<CachedProduct> {
       if (category != null) 'category': category,
       if (thumbnailUrl != null) 'thumbnail_url': thumbnailUrl,
       if (imagesJson != null) 'images_json': imagesJson,
+      if (tagsJson != null) 'tags_json': tagsJson,
+      if (sku != null) 'sku': sku,
+      if (weight != null) 'weight': weight,
+      if (dimensionsJson != null) 'dimensions_json': dimensionsJson,
+      if (warrantyInformation != null)
+        'warranty_information': warrantyInformation,
+      if (shippingInformation != null)
+        'shipping_information': shippingInformation,
+      if (availabilityStatus != null) 'availability_status': availabilityStatus,
+      if (returnPolicy != null) 'return_policy': returnPolicy,
+      if (minimumOrderQuantity != null)
+        'minimum_order_quantity': minimumOrderQuantity,
+      if (reviewsJson != null) 'reviews_json': reviewsJson,
+      if (metaJson != null) 'meta_json': metaJson,
       if (updatedAt != null) 'updated_at': updatedAt,
     });
   }
@@ -616,6 +1132,17 @@ class CachedProductsCompanion extends UpdateCompanion<CachedProduct> {
     Value<String>? category,
     Value<String?>? thumbnailUrl,
     Value<String>? imagesJson,
+    Value<String>? tagsJson,
+    Value<String?>? sku,
+    Value<double?>? weight,
+    Value<String?>? dimensionsJson,
+    Value<String?>? warrantyInformation,
+    Value<String?>? shippingInformation,
+    Value<String?>? availabilityStatus,
+    Value<String?>? returnPolicy,
+    Value<int?>? minimumOrderQuantity,
+    Value<String>? reviewsJson,
+    Value<String?>? metaJson,
     Value<int>? updatedAt,
   }) {
     return CachedProductsCompanion(
@@ -630,6 +1157,17 @@ class CachedProductsCompanion extends UpdateCompanion<CachedProduct> {
       category: category ?? this.category,
       thumbnailUrl: thumbnailUrl ?? this.thumbnailUrl,
       imagesJson: imagesJson ?? this.imagesJson,
+      tagsJson: tagsJson ?? this.tagsJson,
+      sku: sku ?? this.sku,
+      weight: weight ?? this.weight,
+      dimensionsJson: dimensionsJson ?? this.dimensionsJson,
+      warrantyInformation: warrantyInformation ?? this.warrantyInformation,
+      shippingInformation: shippingInformation ?? this.shippingInformation,
+      availabilityStatus: availabilityStatus ?? this.availabilityStatus,
+      returnPolicy: returnPolicy ?? this.returnPolicy,
+      minimumOrderQuantity: minimumOrderQuantity ?? this.minimumOrderQuantity,
+      reviewsJson: reviewsJson ?? this.reviewsJson,
+      metaJson: metaJson ?? this.metaJson,
       updatedAt: updatedAt ?? this.updatedAt,
     );
   }
@@ -670,6 +1208,39 @@ class CachedProductsCompanion extends UpdateCompanion<CachedProduct> {
     if (imagesJson.present) {
       map['images_json'] = Variable<String>(imagesJson.value);
     }
+    if (tagsJson.present) {
+      map['tags_json'] = Variable<String>(tagsJson.value);
+    }
+    if (sku.present) {
+      map['sku'] = Variable<String>(sku.value);
+    }
+    if (weight.present) {
+      map['weight'] = Variable<double>(weight.value);
+    }
+    if (dimensionsJson.present) {
+      map['dimensions_json'] = Variable<String>(dimensionsJson.value);
+    }
+    if (warrantyInformation.present) {
+      map['warranty_information'] = Variable<String>(warrantyInformation.value);
+    }
+    if (shippingInformation.present) {
+      map['shipping_information'] = Variable<String>(shippingInformation.value);
+    }
+    if (availabilityStatus.present) {
+      map['availability_status'] = Variable<String>(availabilityStatus.value);
+    }
+    if (returnPolicy.present) {
+      map['return_policy'] = Variable<String>(returnPolicy.value);
+    }
+    if (minimumOrderQuantity.present) {
+      map['minimum_order_quantity'] = Variable<int>(minimumOrderQuantity.value);
+    }
+    if (reviewsJson.present) {
+      map['reviews_json'] = Variable<String>(reviewsJson.value);
+    }
+    if (metaJson.present) {
+      map['meta_json'] = Variable<String>(metaJson.value);
+    }
     if (updatedAt.present) {
       map['updated_at'] = Variable<int>(updatedAt.value);
     }
@@ -690,6 +1261,17 @@ class CachedProductsCompanion extends UpdateCompanion<CachedProduct> {
           ..write('category: $category, ')
           ..write('thumbnailUrl: $thumbnailUrl, ')
           ..write('imagesJson: $imagesJson, ')
+          ..write('tagsJson: $tagsJson, ')
+          ..write('sku: $sku, ')
+          ..write('weight: $weight, ')
+          ..write('dimensionsJson: $dimensionsJson, ')
+          ..write('warrantyInformation: $warrantyInformation, ')
+          ..write('shippingInformation: $shippingInformation, ')
+          ..write('availabilityStatus: $availabilityStatus, ')
+          ..write('returnPolicy: $returnPolicy, ')
+          ..write('minimumOrderQuantity: $minimumOrderQuantity, ')
+          ..write('reviewsJson: $reviewsJson, ')
+          ..write('metaJson: $metaJson, ')
           ..write('updatedAt: $updatedAt')
           ..write(')'))
         .toString();
@@ -932,6 +1514,17 @@ typedef $$CachedProductsTableCreateCompanionBuilder =
       required String category,
       Value<String?> thumbnailUrl,
       Value<String> imagesJson,
+      Value<String> tagsJson,
+      Value<String?> sku,
+      Value<double?> weight,
+      Value<String?> dimensionsJson,
+      Value<String?> warrantyInformation,
+      Value<String?> shippingInformation,
+      Value<String?> availabilityStatus,
+      Value<String?> returnPolicy,
+      Value<int?> minimumOrderQuantity,
+      Value<String> reviewsJson,
+      Value<String?> metaJson,
       required int updatedAt,
     });
 typedef $$CachedProductsTableUpdateCompanionBuilder =
@@ -947,6 +1540,17 @@ typedef $$CachedProductsTableUpdateCompanionBuilder =
       Value<String> category,
       Value<String?> thumbnailUrl,
       Value<String> imagesJson,
+      Value<String> tagsJson,
+      Value<String?> sku,
+      Value<double?> weight,
+      Value<String?> dimensionsJson,
+      Value<String?> warrantyInformation,
+      Value<String?> shippingInformation,
+      Value<String?> availabilityStatus,
+      Value<String?> returnPolicy,
+      Value<int?> minimumOrderQuantity,
+      Value<String> reviewsJson,
+      Value<String?> metaJson,
       Value<int> updatedAt,
     });
 
@@ -1011,6 +1615,61 @@ class $$CachedProductsTableFilterComposer
 
   ColumnFilters<String> get imagesJson => $composableBuilder(
     column: $table.imagesJson,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get tagsJson => $composableBuilder(
+    column: $table.tagsJson,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get sku => $composableBuilder(
+    column: $table.sku,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get weight => $composableBuilder(
+    column: $table.weight,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get dimensionsJson => $composableBuilder(
+    column: $table.dimensionsJson,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get warrantyInformation => $composableBuilder(
+    column: $table.warrantyInformation,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get shippingInformation => $composableBuilder(
+    column: $table.shippingInformation,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get availabilityStatus => $composableBuilder(
+    column: $table.availabilityStatus,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get returnPolicy => $composableBuilder(
+    column: $table.returnPolicy,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get minimumOrderQuantity => $composableBuilder(
+    column: $table.minimumOrderQuantity,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get reviewsJson => $composableBuilder(
+    column: $table.reviewsJson,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get metaJson => $composableBuilder(
+    column: $table.metaJson,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -1084,6 +1743,61 @@ class $$CachedProductsTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<String> get tagsJson => $composableBuilder(
+    column: $table.tagsJson,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get sku => $composableBuilder(
+    column: $table.sku,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get weight => $composableBuilder(
+    column: $table.weight,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get dimensionsJson => $composableBuilder(
+    column: $table.dimensionsJson,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get warrantyInformation => $composableBuilder(
+    column: $table.warrantyInformation,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get shippingInformation => $composableBuilder(
+    column: $table.shippingInformation,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get availabilityStatus => $composableBuilder(
+    column: $table.availabilityStatus,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get returnPolicy => $composableBuilder(
+    column: $table.returnPolicy,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get minimumOrderQuantity => $composableBuilder(
+    column: $table.minimumOrderQuantity,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get reviewsJson => $composableBuilder(
+    column: $table.reviewsJson,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get metaJson => $composableBuilder(
+    column: $table.metaJson,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<int> get updatedAt => $composableBuilder(
     column: $table.updatedAt,
     builder: (column) => ColumnOrderings(column),
@@ -1140,6 +1854,53 @@ class $$CachedProductsTableAnnotationComposer
     builder: (column) => column,
   );
 
+  GeneratedColumn<String> get tagsJson =>
+      $composableBuilder(column: $table.tagsJson, builder: (column) => column);
+
+  GeneratedColumn<String> get sku =>
+      $composableBuilder(column: $table.sku, builder: (column) => column);
+
+  GeneratedColumn<double> get weight =>
+      $composableBuilder(column: $table.weight, builder: (column) => column);
+
+  GeneratedColumn<String> get dimensionsJson => $composableBuilder(
+    column: $table.dimensionsJson,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get warrantyInformation => $composableBuilder(
+    column: $table.warrantyInformation,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get shippingInformation => $composableBuilder(
+    column: $table.shippingInformation,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get availabilityStatus => $composableBuilder(
+    column: $table.availabilityStatus,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get returnPolicy => $composableBuilder(
+    column: $table.returnPolicy,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get minimumOrderQuantity => $composableBuilder(
+    column: $table.minimumOrderQuantity,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get reviewsJson => $composableBuilder(
+    column: $table.reviewsJson,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get metaJson =>
+      $composableBuilder(column: $table.metaJson, builder: (column) => column);
+
   GeneratedColumn<int> get updatedAt =>
       $composableBuilder(column: $table.updatedAt, builder: (column) => column);
 }
@@ -1188,6 +1949,17 @@ class $$CachedProductsTableTableManager
                 Value<String> category = const Value.absent(),
                 Value<String?> thumbnailUrl = const Value.absent(),
                 Value<String> imagesJson = const Value.absent(),
+                Value<String> tagsJson = const Value.absent(),
+                Value<String?> sku = const Value.absent(),
+                Value<double?> weight = const Value.absent(),
+                Value<String?> dimensionsJson = const Value.absent(),
+                Value<String?> warrantyInformation = const Value.absent(),
+                Value<String?> shippingInformation = const Value.absent(),
+                Value<String?> availabilityStatus = const Value.absent(),
+                Value<String?> returnPolicy = const Value.absent(),
+                Value<int?> minimumOrderQuantity = const Value.absent(),
+                Value<String> reviewsJson = const Value.absent(),
+                Value<String?> metaJson = const Value.absent(),
                 Value<int> updatedAt = const Value.absent(),
               }) => CachedProductsCompanion(
                 id: id,
@@ -1201,6 +1973,17 @@ class $$CachedProductsTableTableManager
                 category: category,
                 thumbnailUrl: thumbnailUrl,
                 imagesJson: imagesJson,
+                tagsJson: tagsJson,
+                sku: sku,
+                weight: weight,
+                dimensionsJson: dimensionsJson,
+                warrantyInformation: warrantyInformation,
+                shippingInformation: shippingInformation,
+                availabilityStatus: availabilityStatus,
+                returnPolicy: returnPolicy,
+                minimumOrderQuantity: minimumOrderQuantity,
+                reviewsJson: reviewsJson,
+                metaJson: metaJson,
                 updatedAt: updatedAt,
               ),
           createCompanionCallback:
@@ -1216,6 +1999,17 @@ class $$CachedProductsTableTableManager
                 required String category,
                 Value<String?> thumbnailUrl = const Value.absent(),
                 Value<String> imagesJson = const Value.absent(),
+                Value<String> tagsJson = const Value.absent(),
+                Value<String?> sku = const Value.absent(),
+                Value<double?> weight = const Value.absent(),
+                Value<String?> dimensionsJson = const Value.absent(),
+                Value<String?> warrantyInformation = const Value.absent(),
+                Value<String?> shippingInformation = const Value.absent(),
+                Value<String?> availabilityStatus = const Value.absent(),
+                Value<String?> returnPolicy = const Value.absent(),
+                Value<int?> minimumOrderQuantity = const Value.absent(),
+                Value<String> reviewsJson = const Value.absent(),
+                Value<String?> metaJson = const Value.absent(),
                 required int updatedAt,
               }) => CachedProductsCompanion.insert(
                 id: id,
@@ -1229,6 +2023,17 @@ class $$CachedProductsTableTableManager
                 category: category,
                 thumbnailUrl: thumbnailUrl,
                 imagesJson: imagesJson,
+                tagsJson: tagsJson,
+                sku: sku,
+                weight: weight,
+                dimensionsJson: dimensionsJson,
+                warrantyInformation: warrantyInformation,
+                shippingInformation: shippingInformation,
+                availabilityStatus: availabilityStatus,
+                returnPolicy: returnPolicy,
+                minimumOrderQuantity: minimumOrderQuantity,
+                reviewsJson: reviewsJson,
+                metaJson: metaJson,
                 updatedAt: updatedAt,
               ),
           withReferenceMapper: (p0) => p0
