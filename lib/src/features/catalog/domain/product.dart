@@ -1,5 +1,7 @@
 import '../../../core/logging/app_logger.dart';
 
+enum ProductStockStatus { inStock, lowStock, outOfStock }
+
 class Product {
   Product({
     required this.id,
@@ -164,6 +166,20 @@ class Product {
   }
 
   bool get inStock => stock > 0;
+
+  bool get isLowStock => stock > 0 && stock <= 10;
+
+  ProductStockStatus get stockStatus {
+    if (stock <= 0) {
+      return ProductStockStatus.outOfStock;
+    }
+
+    if (stock <= 10) {
+      return ProductStockStatus.lowStock;
+    }
+
+    return ProductStockStatus.inStock;
+  }
 
   Product copyWith({
     int? id,

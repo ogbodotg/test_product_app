@@ -79,16 +79,12 @@ class ProductCard extends StatelessWidget {
                         Text(product.rating.toStringAsFixed(1)),
                         const SizedBox(width: 12),
                         Icon(
-                          product.inStock
-                              ? Icons.inventory_2_outlined
-                              : Icons.inventory_2,
+                          _stockIcon(product.stockStatus),
                           size: 17,
-                          color: product.inStock
-                              ? colorScheme.primary
-                              : colorScheme.error,
+                          color: _stockColor(product.stockStatus),
                         ),
                         const SizedBox(width: 4),
-                        Text(product.inStock ? 'In stock' : 'Out of stock'),
+                        Text(_stockLabel(product)),
                       ],
                     ),
                   ],
@@ -161,4 +157,37 @@ class _PriceView extends StatelessWidget {
   }
 
   String _formatCurrency(double value) => '\$${value.toStringAsFixed(2)}';
+}
+
+IconData _stockIcon(ProductStockStatus status) {
+  switch (status) {
+    case ProductStockStatus.inStock:
+      return Icons.check_circle_rounded;
+    case ProductStockStatus.lowStock:
+      return Icons.warning_amber_rounded;
+    case ProductStockStatus.outOfStock:
+      return Icons.cancel_rounded;
+  }
+}
+
+Color _stockColor(ProductStockStatus status) {
+  switch (status) {
+    case ProductStockStatus.inStock:
+      return Colors.green.shade700;
+    case ProductStockStatus.lowStock:
+      return Colors.red.shade600;
+    case ProductStockStatus.outOfStock:
+      return Colors.red.shade600;
+  }
+}
+
+String _stockLabel(Product product) {
+  switch (product.stockStatus) {
+    case ProductStockStatus.inStock:
+      return 'In stock';
+    case ProductStockStatus.lowStock:
+      return 'Low stock';
+    case ProductStockStatus.outOfStock:
+      return 'Out of stock';
+  }
 }

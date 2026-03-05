@@ -174,15 +174,14 @@ class _ProductDetailBodyState extends State<_ProductDetailBody> {
           Row(
             children: [
               Icon(
-                widget.product.inStock ? Icons.check_circle : Icons.cancel,
-                color: widget.product.inStock
-                    ? theme.colorScheme.primary
-                    : theme.colorScheme.error,
+                _stockIcon(widget.product.stockStatus),
+                color: _stockColor(widget.product.stockStatus),
               ),
               const SizedBox(width: 8),
               Text(
                 _availabilityText(widget.product),
                 style: theme.textTheme.titleSmall?.copyWith(
+                  color: _stockColor(widget.product.stockStatus),
                   fontWeight: FontWeight.w700,
                 ),
               ),
@@ -247,7 +246,36 @@ class _ProductDetailBodyState extends State<_ProductDetailBody> {
       return status;
     }
 
-    return product.inStock ? '${product.stock} items in stock' : 'Out of stock';
+    switch (product.stockStatus) {
+      case ProductStockStatus.inStock:
+        return '${product.stock} items in stock';
+      case ProductStockStatus.lowStock:
+        return 'Low stock (${product.stock} left)';
+      case ProductStockStatus.outOfStock:
+        return 'Out of stock';
+    }
+  }
+
+  IconData _stockIcon(ProductStockStatus status) {
+    switch (status) {
+      case ProductStockStatus.inStock:
+        return Icons.check_circle_rounded;
+      case ProductStockStatus.lowStock:
+        return Icons.warning_amber_rounded;
+      case ProductStockStatus.outOfStock:
+        return Icons.cancel_rounded;
+    }
+  }
+
+  Color _stockColor(ProductStockStatus status) {
+    switch (status) {
+      case ProductStockStatus.inStock:
+        return Colors.green.shade700;
+      case ProductStockStatus.lowStock:
+        return Colors.red.shade600;
+      case ProductStockStatus.outOfStock:
+        return Colors.red.shade600;
+    }
   }
 }
 
