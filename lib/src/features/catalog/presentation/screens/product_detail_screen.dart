@@ -527,6 +527,7 @@ class _PriceInfo extends StatelessWidget {
       return Text(
         _money(product.price!),
         style: theme.textTheme.headlineSmall?.copyWith(
+          color: theme.colorScheme.primary,
           fontWeight: FontWeight.w800,
         ),
       );
@@ -538,6 +539,7 @@ class _PriceInfo extends StatelessWidget {
         Text(
           _money(discountedPrice),
           style: theme.textTheme.headlineSmall?.copyWith(
+            color: theme.colorScheme.primary,
             fontWeight: FontWeight.w800,
           ),
         ),

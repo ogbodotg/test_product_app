@@ -14,16 +14,21 @@ class CategoryFilterChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return FilterChip(
       selected: selected,
       onSelected: onSelected,
       label: Text(label),
       showCheckmark: false,
       visualDensity: VisualDensity.compact,
-      side: BorderSide(
-        color: selected
-            ? Theme.of(context).colorScheme.primary
-            : Theme.of(context).colorScheme.outlineVariant,
+      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+      labelPadding: const EdgeInsets.symmetric(horizontal: 4),
+      shape: StadiumBorder(
+        side: BorderSide(
+          color: selected ? colorScheme.primary : colorScheme.outlineVariant,
+        ),
       ),
     );
   }

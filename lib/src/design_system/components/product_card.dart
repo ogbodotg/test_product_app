@@ -146,13 +146,13 @@ class _PriceView extends StatelessWidget {
           _formatCurrency(product.price!),
           style: theme.textTheme.bodySmall?.copyWith(
             decoration: TextDecoration.lineThrough,
-            color: theme.colorScheme.onSurfaceVariant,
+            color: Colors.red.shade600,
           ),
         ),
         Text(
           '-${product.discountPercentage.toStringAsFixed(0)}%',
           style: theme.textTheme.bodySmall?.copyWith(
-            color: theme.colorScheme.primary,
+            color: Colors.green.shade700,
             fontWeight: FontWeight.w700,
           ),
         ),
